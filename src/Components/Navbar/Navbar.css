@@ -110,3 +110,21 @@ nav {
     display: block;
   }
 }
+/* ✅ Username display style */
+.username-display span {
+    color: #1b4965;
+    font-weight: 600;
+    margin-right: 8px;
+  }
+  
+  /* ✅ Logout button style */
+  .logout-btn {
+    background-color: #e63946 !important;
+    color: #fff;
+    border: none;
+  }
+  
+  .logout-btn:hover {
+    background-color: #d62828 !important;
+  }
+  

@@ -1,186 +1,137 @@
-import React, { useState } from "react";
-import "./Sign_Up.css";
+// Following code has been commented with appropriate comments for your reference.
+import React, { useState } from 'react';
+import './Sign_Up.css';
+import { Link, useNavigate } from 'react-router-dom';
+import { API_URL } from '../../config';
 
+// Function component for Sign Up form
 const Sign_Up = () => {
-  // État du formulaire
-  const [formData, setFormData] = useState({
-    role: "",
-    name: "",
-    phone: "",
-    email: "",
-    password: "",
-  });
+    // State variables using useState hook
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [password, setPassword] = useState('');
+    const [showerr, setShowerr] = useState(''); // State to show error messages
+    const navigate = useNavigate(); // Navigation hook from react-router
 
-  // État pour erreurs de validation
-  const [errors, setErrors] = useState({});
+    // Function to handle form submission
+    const register = async (e) => {
+        e.preventDefault(); // Prevent default form submission
 
-  // Gérer le changement des champs
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+        // API Call to register user
+        const response = await fetch(`${API_URL}/api/auth/register`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                password: password,
+                phone: phone,
+            }),
+        });
 
-  // Validation des champs
-  const validateForm = () => {
-    const newErrors = {};
+        const json = await response.json(); // Parse the response JSON
 
-    if (!formData.role) {
-      newErrors.role = "Please select your role";
-    }
+        if (json.authtoken) {
+            // Store user data in session storage
+            sessionStorage.setItem("auth-token", json.authtoken);
+            sessionStorage.setItem("name", name);
+            sessionStorage.setItem("phone", phone);
+            sessionStorage.setItem("email", email);
 
-    if (!formData.name.trim()) {
-      newErrors.name = "Name is required";
-    }
+            // Redirect user to home page
+            navigate("/");
+            window.location.reload(); // Refresh the page
+        } else {
+            if (json.errors) {
+                for (const error of json.errors) {
+                    setShowerr(error.msg); // Show error messages
+                }
+            } else {
+                setShowerr(json.error);
+            }
+        }
+    };
 
-    if (!/^[0-9]{10}$/.test(formData.phone)) {
-      newErrors.phone = "Phone number must be exactly 10 digits";
-    }
+    // JSX to render the Sign Up form
+    return (
+        <div className="container" style={{ marginTop: '5%' }}>
+            <div className="signup-grid">
+                <div className="signup-form">
+                    <form method="POST" onSubmit={register}>
+                        <div className="form-group">
+                            <label htmlFor="name">Name</label>
+                            <input
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                type="text"
+                                name="name"
+                                id="name"
+                                className="form-control"
+                                placeholder="Enter your name"
+                                required
+                            />
+                        </div>
 
-    if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address";
-    }
+                        <div className="form-group">
+                            <label htmlFor="phone">Phone</label>
+                            <input
+                                value={phone}
+                                onChange={(e) => setPhone(e.target.value)}
+                                type="tel"
+                                name="phone"
+                                id="phone"
+                                className="form-control"
+                                placeholder="Enter your phone number"
+                                required
+                            />
+                        </div>
 
-    if (formData.password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters";
-    }
+                        <div className="form-group">
+                            <label htmlFor="email">Email</label>
+                            <input
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                type="email"
+                                name="email"
+                                id="email"
+                                className="form-control"
+                                placeholder="Enter your email"
+                                required
+                            />
+                            {showerr && <div className="err" style={{ color: 'red' }}>{showerr}</div>}
+                        </div>
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+                        <div className="form-group">
+                            <label htmlFor="password">Password</label>
+                            <input
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                type="password"
+                                name="password"
+                                id="password"
+                                className="form-control"
+                                placeholder="Enter your password"
+                                required
+                            />
+                        </div>
 
-  // Soumission du formulaire
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-      alert("Sign up successful!");
-      console.log("User Data:", formData);
-    }
-  };
+                        <div className="btn-group">
+                            <button type="submit" className="btn btn-primary">Submit</button>
+                            <button type="reset" className="btn btn-danger">Reset</button>
+                        </div>
 
-  // Réinitialiser le formulaire
-  const handleReset = () => {
-    setFormData({
-      role: "",
-      name: "",
-      phone: "",
-      email: "",
-      password: "",
-    });
-    setErrors({});
-  };
-
-  return (
-    <div className="signup-page">
-      <div className="signup-card">
-        <div className="signup-text">
-          <h1>Sign Up</h1>
+                        <div className="signup-text1" style={{ textAlign: 'left' }}>
+                            Already a member? <Link to="/login" style={{ color: '#2190FF' }}>Login</Link>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <div className="signup-text1">
-          Already a member?{" "}
-          <a href="/login" style={{ color: "#2190FF" }}>
-            Login
-          </a>
-        </div>
-
-        <form onSubmit={handleSubmit}>
-          {/* Role */}
-          <div className="form-group">
-            <label htmlFor="role">Role</label>
-            <select
-              name="role"
-              id="role"
-              className="form-control"
-              value={formData.role}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select your role</option>
-              <option value="doctor">Doctor</option>
-              <option value="patient">Patient</option>
-            </select>
-            {errors.role && <p className="error-message">{errors.role}</p>}
-          </div>
-
-          {/* Name */}
-          <div className="form-group">
-            <label htmlFor="name">Name</label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              className="form-control"
-              placeholder="Enter your name"
-              value={formData.name}
-              onChange={handleChange}
-            />
-            {errors.name && <p className="error-message">{errors.name}</p>}
-          </div>
-
-          {/* Phone */}
-          <div className="form-group">
-            <label htmlFor="phone">Phone</label>
-            <input
-              type="tel"
-              name="phone"
-              id="phone"
-              className="form-control"
-              placeholder="Enter your phone number"
-              value={formData.phone}
-              onChange={handleChange}
-            />
-            {errors.phone && <p className="error-message">{errors.phone}</p>}
-          </div>
-
-          {/* Email */}
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              className="form-control"
-              placeholder="Enter your email"
-              value={formData.email}
-              onChange={handleChange}
-            />
-            {errors.email && <p className="error-message">{errors.email}</p>}
-          </div>
-
-          {/* Password */}
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              className="form-control"
-              placeholder="Enter your password"
-              value={formData.password}
-              onChange={handleChange}
-            />
-            {errors.password && (
-              <p className="error-message">{errors.password}</p>
-            )}
-          </div>
-
-          {/* Buttons */}
-          <div className="btn-group">
-            <button type="submit" className="btn btn-primary">
-              Submit
-            </button>
-            <button
-              type="reset"
-              className="btn btn-danger"
-              onClick={handleReset}
-            >
-              Reset
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
+        // Note: Sign up role is not stored in the database. Additional logic can be implemented for this based on your React code.
+    );
 };
 
-export default Sign_Up;
+export default Sign_Up; // Export the Sign_Up component for use in other components
