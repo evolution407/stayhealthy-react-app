@@ -1,57 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom"; // ✅ Import Link for navigation
 import "./Navbar.css";
-import logoSH from "./images/logoSH.png"; // Import logo a
+import logoSH from "./images/logoSH.png"; // ✅ Import logo
 
 const Navbar = () => {
-  // Fonksyon pou ouvri/fèmen meni a (hamburger icon)
+  const [isActive, setIsActive] = useState(false);
+
+  // ✅ Fonksyon pou ouvri/fèmen meni a (hamburger icon)
   const handleClick = () => {
-    const navLinks = document.querySelector(".nav__links");
-    const navIcon = document.querySelector(".nav__icon i");
-
-    navLinks.classList.toggle("active");
-
-    if (navLinks.classList.contains("active")) {
-      navIcon.classList.remove("fa-bars");
-      navIcon.classList.add("fa-times");
-    } else {
-      navIcon.classList.remove("fa-times");
-      navIcon.classList.add("fa-bars");
-    }
+    setIsActive(!isActive);
   };
 
   return (
     <nav>
       {/* ✅ Logo ak tèks */}
       <div className="nav__logo">
-        <a href="/">
+        <Link to="/">
           <span>StayHealthy</span>
           <img src={logoSH} alt="StayHealthy logo" className="nav__img" />
-        </a>
+        </Link>
         <span>.</span>
       </div>
 
       {/* ✅ Icon pou mobile toggle */}
       <div className="nav__icon" onClick={handleClick}>
-        <i className="fa fa-bars"></i>
+        <i className={`fa ${isActive ? "fa-times" : "fa-bars"}`}></i>
       </div>
 
       {/* ✅ Lis meni yo */}
-      <ul className="nav__links active">
+      <ul className={`nav__links ${isActive ? "active" : ""}`}>
         <li className="link">
-          <a href="../Landing_Page/LandingPage.html">Home</a>
+          <Link to="/">Home</Link>
         </li>
         <li className="link">
-          <a href="#">Appointments</a>
+          <Link to="#">Appointments</Link>
         </li>
         <li className="link">
-          <a href="../Sign_Up/Sign_Up.html">
+          <Link to="/signup">
             <button className="btn1">Sign Up</button>
-          </a>
+          </Link>
         </li>
         <li className="link">
-          <a href="../Login/Login.html">
+          <Link to="/login">
             <button className="btn1">Login</button>
-          </a>
+          </Link>
         </li>
       </ul>
     </nav>
