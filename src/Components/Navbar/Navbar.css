@@ -127,4 +127,31 @@ nav {
   .logout-btn:hover {
     background-color: #d62828 !important;
   }
-  
+  /* ✅ Bouton stil prensipal */
+.btn1 {
+  padding: 6px 16px;
+  border-radius: 25px;
+  border: 2px solid #008080; /* koulè ble-vèt */
+  background-color: white;   /* background blan vizib sou navbar blan */
+  color: #008080;            /* tèks vizib */
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* ✅ Efè hover (lè ou pase sourit sou yo) */
+.btn1:hover {
+  background-color: #008080;
+  color: white;
+}
+
+/* ✅ Bouton Logout ka gen koulè diferan */
+.logout-btn {
+  border-color: #d9534f;
+  color: #d9534f;
+}
+
+.logout-btn:hover {
+  background-color: #d9534f;
+  color: white;
+}

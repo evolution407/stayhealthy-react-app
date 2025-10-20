@@ -1,0 +1,137 @@
+/* === GLOBAL RESET === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  /* === CONTAINER PRINCIPAL === */
+  .searchpage-container {
+    width: 100%;
+    min-height: 100vh;
+    padding: 4rem 2rem;
+    background-color: #f9fbff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+    /* ✅ Espas pou Navbar la */
+    margin-top: 80px;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* === SEARCH BAR ZONE === */
+  .searchpage-container .searchbar {
+    width: 70%;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .searchpage-container input[type="text"] {
+    width: 70%;
+    padding: 0.9rem 1.2rem;
+    border: 1px solid #bfc6d0;
+    border-radius: 8px 0 0 8px;
+    outline: none;
+    font-size: 1rem;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .searchpage-container input[type="text"]:focus {
+    border-color: #2190ff;
+    box-shadow: 0 0 8px rgba(33, 144, 255, 0.4);
+  }
+  
+  .searchpage-container button {
+    padding: 0.9rem 1.5rem;
+    border: none;
+    background-color: #2190ff;
+    color: white;
+    font-size: 1rem;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .searchpage-container button:hover {
+    background-color: #0d74e7;
+  }
+  
+  /* === SEARCH RESULTS === */
+  .search-results-container {
+    width: 85%;
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+  }
+  
+  .search-results-container h2 {
+    font-size: 1.6rem;
+    color: #1a1a1a;
+    margin-bottom: 0.5rem;
+  }
+  
+  .search-results-container h3 {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #6b7280;
+    margin-bottom: 2rem;
+  }
+  
+  /* === DOCTOR CARD === */
+  .doctorcard {
+    width: 100%;
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .doctorcard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 14px rgba(33, 144, 255, 0.15);
+  }
+  
+  /* === RESPONSIVE DESIGN === */
+  @media (max-width: 768px) {
+    .searchpage-container input[type="text"] {
+      width: 100%;
+    }
+  
+    .search-results-container {
+      width: 95%;
+      padding: 1.5rem;
+    }
+  
+    .doctorcard {
+      padding: 1rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .searchpage-container {
+      padding: 2rem 1rem;
+      margin-top: 70px; /* ti ajisteman pou mobil */
+    }
+  
+    .searchpage-container input[type="text"] {
+      font-size: 0.9rem;
+    }
+  
+    .searchpage-container button {
+      font-size: 0.9rem;
+      padding: 0.8rem 1rem;
+    }
+  
+    .search-results-container h2 {
+      font-size: 1.2rem;
+    }
+  }
+  
