@@ -28,7 +28,9 @@ const Navbar = () => {
 
       // ekstrè non an soti nan email la anvan "@"
       const nameFromEmail = email.split("@")[0];
-      setUsername(nameFromEmail.charAt(0).toUpperCase() + nameFromEmail.slice(1));
+      setUsername(
+        nameFromEmail.charAt(0).toUpperCase() + nameFromEmail.slice(1)
+      );
     }
   }, []);
 
@@ -67,8 +69,16 @@ const Navbar = () => {
         <li className="link">
           <Link to="/">Home</Link>
         </li>
+
         <li className="link">
           <a href="#">Appointments</a>
+        </li>
+
+        {/* ✅ Nou ajoute bouton Instant Consultation la */}
+        <li className="link">
+          <Link to="/instant-consultation">
+            <button className="btn1">Instant Consultation</button>
+          </Link>
         </li>
 
         {/* ✅ Si user pa konekte */}
