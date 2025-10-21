@@ -1,0 +1,50 @@
+.find-doctor-container {
+    width: 100%;
+    text-align: center;
+    margin-top: 4rem;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  .search-box {
+    width: 60%;
+    margin: 1rem auto;
+    position: relative;
+  }
+  
+  .search-box input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+  }
+  
+  .search-box input:focus {
+    border-color: #0b8df7;
+    box-shadow: 0 0 6px rgba(11, 141, 247, 0.4);
+  }
+  
+  .dropdown-list {
+    position: absolute;
+    width: 100%;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 0.2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    text-align: left;
+  }
+  
+  .dropdown-list li {
+    padding: 0.7rem 1rem;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  
+  .dropdown-list li:hover {
+    background-color: #f1f8ff;
+  }
+  
