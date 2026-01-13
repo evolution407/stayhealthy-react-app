@@ -23,37 +23,56 @@ const Login = () => {
   const login = async (e) => {
     e.preventDefault();
 
-    // Send a POST request to the login API endpoint
-    const res = await fetch(`${API_URL}/api/auth/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    });
+    try {
+      // Send a POST request to the login API endpoint
+      const res = await fetch(`${API_URL}/api/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
 
-    // Parse the response JSON
-    const json = await res.json();
-    if (json.authtoken) {
-      // If authentication token is received, store it in session storage
-      sessionStorage.setItem('auth-token', json.authtoken);
-      sessionStorage.setItem('email', email);
-
-      // Redirect to home page and reload the window
-      navigate('/');
-      window.location.reload();
-    } else {
-      // Handle errors if authentication fails
-      if (json.errors) {
-        for (const error of json.errors) {
-          alert(error.msg);
+      // If backend responds but with non-2xx status
+      if (!res.ok) {
+        let msg = "";
+        try {
+          msg = await res.text();
+        } catch (readErr) {
+          // ignore body read errors
         }
-      } else {
-        alert(json.error);
+        alert(`Login failed (${res.status}). ${msg}`);
+        return;
       }
+
+      // Parse the response JSON
+      const json = await res.json();
+
+      if (json.authtoken) {
+        // If authentication token is received, store it in session storage
+        sessionStorage.setItem('auth-token', json.authtoken);
+        sessionStorage.setItem('email', email);
+
+        // Redirect to home page and reload the window
+        navigate('/');
+        window.location.reload();
+      } else {
+        // Handle errors if authentication fails
+        if (json.errors) {
+          for (const error of json.errors) {
+            alert(error.msg);
+          }
+        } else {
+          alert(json.error);
+        }
+      }
+    } catch (err) {
+      // Network / CORS / proxy errors end up here (prevents "Uncaught runtime error")
+      console.error("Login request failed:", err);
+      alert("Unable to reach server. Please try again.");
     }
   };
 
