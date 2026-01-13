@@ -1,3 +1,4 @@
+/* ===== Doctor Card Container ===== */
 .doctor-card-container {
   width: 300px;
   height: 100%;
@@ -10,6 +11,7 @@
   margin-bottom: 20px;
 }
 
+/* ===== Card Content ===== */
 .doctor-card-details-container {
   padding: 20px;
 }
@@ -29,6 +31,7 @@
   text-align: center;
 }
 
+/* ===== Doctor Details ===== */
 .doctor-card-detail-name {
   font-size: 18px;
   font-weight: bold;
@@ -47,29 +50,72 @@
   font-weight: bold;
 }
 
-.doctor-card-detail-location,
-.doctor-card-detail-clinic,
 .doctor-card-detail-consultationfees {
   font-size: 14px;
   margin-bottom: 5px;
-}
-
-.doctor-card-detail-consultationfees {
   font-weight: bold;
 }
 
-/* ✅ Bouton an dwe pran style */
+/* ===== Options Container (Exercise 4 ref) ===== */
+.doctor-card-options-container {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+}
+
+/* ===== Book / Cancel Button ===== */
 .book-appointment-btn {
   background-color: #3498db;
   color: #fff;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 20px;
   font-size: 16px;
   border-radius: 5px;
   cursor: pointer;
+  width: 100%;
 }
 
 .book-appointment-btn div:nth-child(2) {
   font-size: 12px;
   font-weight: bold;
+}
+
+/* ===== Cancel Mode ===== */
+.cancel-appointment {
+  background-color: #e74c3c;
+}
+
+/* ===== Booked Appointment Info ===== */
+.bookedInfo {
+  margin-top: 15px;
+  padding: 12px;
+  background-color: #f5f5f5;
+  border-radius: 6px;
+  text-align: left;
+}
+
+.bookedInfo h4 {
+  margin: 0 0 8px 0;
+  text-align: center;
+}
+
+.bookedInfo p {
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+/* ===== Cancel Button inside booked info ===== */
+.bookedInfo button {
+  margin-top: 10px;
+  width: 100%;
+  padding: 8px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.bookedInfo button:hover {
+  background-color: #c0392b;
 }

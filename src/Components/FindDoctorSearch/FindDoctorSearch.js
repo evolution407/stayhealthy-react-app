@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./FindDoctorSearch.css";
 
-const FindDoctorSearch = () => {
+const FindDoctorSearch = ({ onSearch }) => {
   const [searchDoctor, setSearchDoctor] = useState("");
   const [showList, setShowList] = useState(false);
 
@@ -13,7 +13,7 @@ const FindDoctorSearch = () => {
     "General Physician",
     "ENT Specialist",
     "Gynecologist",
-    "Orthopedic"
+    "Orthopedic",
   ];
 
   const handleFocus = () => {
@@ -25,9 +25,23 @@ const FindDoctorSearch = () => {
     setTimeout(() => setShowList(false), 150);
   };
 
+  // ✅ Lè user chwazi yon speciality
   const handleSelect = (spec) => {
     setSearchDoctor(spec);
     setShowList(false);
+
+    // 🔑 SA A SE PI ENPÒTAN AN (connect ak BookingConsultation)
+    if (onSearch) {
+      onSearch(spec);
+    }
+  };
+
+  // ✅ Opsyonèl: si user tape epi peze Enter
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && onSearch) {
+      onSearch(searchDoctor);
+      setShowList(false);
+    }
   };
 
   return (
@@ -42,6 +56,7 @@ const FindDoctorSearch = () => {
           onChange={(e) => setSearchDoctor(e.target.value)}
           onFocus={handleFocus}
           onBlur={handleBlur}
+          onKeyDown={handleKeyDown}   // ✅ ajout minim
         />
 
         {showList && (

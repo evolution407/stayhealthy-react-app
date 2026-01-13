@@ -1,7 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import "./DoctorCard.css";
+import AppointmentForm from "../AppointmentForm/AppointmentForm";
 
 const DoctorCard = ({ name, speciality, experience, ratings, profilePic }) => {
+  const [showForm, setShowForm] = useState(false);
+
+  // ✅ kenbe appointment la (si gen booking)
+  const [appointment, setAppointment] = useState(null);
+
+  // ✅ Book button click
+  const handleBookingClick = () => {
+    setShowForm(true);
+  };
+
+  // ✅ Cancel appointment
+  const handleCancel = () => {
+    setAppointment(null);
+    setShowForm(false);
+  };
+
+  // ✅ Lè form submit
+  const handleFormSubmit = (data) => {
+    setAppointment(data); // sove booking info
+    setShowForm(false);   // kache form
+  };
+
   return (
     <div className="doctor-card-container">
       <div className="doctor-card-details-container">
@@ -32,13 +55,41 @@ const DoctorCard = ({ name, speciality, experience, ratings, profilePic }) => {
             Ratings: {ratings}
           </div>
 
-          {/* ✅ Step 6: button (jan lab la mande a) */}
-          <div>
-            <button className="book-appointment-btn" type="button">
-              <div>Book Appointment</div>
+          {/* ✅ Exercise 4: Book/Cancel (referans DoctorCardIC doctor-card-options-container) */}
+          <div className="doctor-card-options-container">
+            <button
+              type="button"
+              className={`book-appointment-btn ${appointment ? "cancel-appointment" : ""}`}
+              onClick={appointment ? handleCancel : handleBookingClick}
+            >
+              <div>{appointment ? "Cancel Appointment" : "Book Appointment"}</div>
               <div>No Booking Fee</div>
             </button>
           </div>
+
+          {/* ✅ si gen appointment, montre booked info */}
+          {appointment && (
+            <div className="bookedInfo">
+              <h4 style={{ marginTop: "12px" }}>Appointment Booked!</h4>
+              <p><strong>Name:</strong> {appointment.name}</p>
+              <p><strong>Phone Number:</strong> {appointment.phoneNumber}</p>
+              <p><strong>Date:</strong> {appointment.appointmentDate}</p>
+              <p><strong>Time Slot:</strong> {appointment.selectedSlot}</p>
+
+              <button type="button" onClick={handleCancel}>
+                Cancel Appointment
+              </button>
+            </div>
+          )}
+
+          {/* ✅ si showForm=true, montre AppointmentForm */}
+          {showForm && !appointment && (
+            <AppointmentForm
+              doctorName={name}
+              doctorSpeciality={speciality}
+              onSubmit={handleFormSubmit}
+            />
+          )}
         </div>
       </div>
     </div>

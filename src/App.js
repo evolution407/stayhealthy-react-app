@@ -7,6 +7,7 @@ import Login from "./Components/Login/Login";
 import InstantConsultation from "./Components/InstantConsultationBooking/InstantConsultation"; // deja la
 import FindDoctorSearch from "./Components/FindDoctorSearch/FindDoctorSearch"; // ✅ nouvo import
 import "./App.css";
+import BookingConsultation from "./Components/BookingConsultation/BookingConsultation";
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/instant-consultation" element={<InstantConsultation />} />
           {/* ✅ Nouvo route pou FindDoctorSearch */}
+          <Route path="/booking-consultation" element={<BookingConsultation />} />
+
           <Route path="/find-doctor" element={<FindDoctorSearch />} />
         </Routes>
       </BrowserRouter>
