@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./BookingConsultation.css";
-import FindDoctorSearch from "../FindDoctorSearch/FindDoctorSearch";
-import DoctorCard from "../DoctorCard/DoctorCard";
+import FindDoctorSearch from "./FindDoctorSearch/FindDoctorSearch";
+import DoctorCard from "./DoctorCard/DoctorCard";
 
 // ✅ Doktè lokal pou lè API ekstèn nan pa mache
 const LOCAL_DOCTORS = [

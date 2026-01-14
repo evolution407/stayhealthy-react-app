@@ -7,7 +7,9 @@ import Login from "./Components/Login/Login";
 import InstantConsultation from "./Components/InstantConsultationBooking/InstantConsultation"; // deja la
 import FindDoctorSearch from "./Components/FindDoctorSearch/FindDoctorSearch"; // ✅ nouvo import
 import "./App.css";
-import BookingConsultation from "./Components/BookingConsultation/BookingConsultation";
+import BookingConsultation from "./Components/BookingConsultation";
+
+
 
 function App() {
   return (
