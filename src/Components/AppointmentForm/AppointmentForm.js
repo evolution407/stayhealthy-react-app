@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./AppointmentForm.css";
 
 const AppointmentForm = ({ doctorName, doctorSpeciality, onSubmit }) => {
@@ -7,10 +7,18 @@ const AppointmentForm = ({ doctorName, doctorSpeciality, onSubmit }) => {
   const [appointmentDate, setAppointmentDate] = useState("");
   const [selectedSlot, setSelectedSlot] = useState("");
 
+  // ✅ (AJOUTE) default date = jodia (epi anpeche pase)
+  useEffect(() => {
+    if (!appointmentDate) {
+      const today = new Date().toISOString().split("T")[0];
+      setAppointmentDate(today);
+    }
+  }, [appointmentDate]);
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
-    // voye tout done yo bay parent la (DoctorCard)
+    // ✅ voye tout done yo bay parent la (DoctorCard)
     if (onSubmit) {
       onSubmit({
         name,
@@ -22,12 +30,15 @@ const AppointmentForm = ({ doctorName, doctorSpeciality, onSubmit }) => {
       });
     }
 
-    // reset form
+    // ✅ reset form
     setName("");
     setPhoneNumber("");
-    setAppointmentDate("");
+    const today = new Date().toISOString().split("T")[0];
+    setAppointmentDate(today);
     setSelectedSlot("");
   };
+
+  const minDate = new Date().toISOString().split("T")[0];
 
   return (
     <form onSubmit={handleFormSubmit} className="appointment-form">
@@ -53,19 +64,20 @@ const AppointmentForm = ({ doctorName, doctorSpeciality, onSubmit }) => {
         />
       </div>
 
-      {/* ✅ Nouvo chan: Date of Appointment */}
+      {/* ✅ Date of Appointment */}
       <div className="form-group">
         <label htmlFor="appointmentDate">Date of Appointment:</label>
         <input
           type="date"
           id="appointmentDate"
           value={appointmentDate}
+          min={minDate} // ✅ (AJOUTE) coming dates only
           onChange={(e) => setAppointmentDate(e.target.value)}
           required
         />
       </div>
 
-      {/* ✅ Nouvo chan: Book Time Slot */}
+      {/* ✅ Book Time Slot */}
       <div className="form-group">
         <label htmlFor="timeSlot">Book Time Slot:</label>
         <select
@@ -75,12 +87,12 @@ const AppointmentForm = ({ doctorName, doctorSpeciality, onSubmit }) => {
           required
         >
           <option value="">Select a time slot</option>
-          <option value="09:00 AM - 09:30 AM">09:00 AM - 09:30 AM</option>
-          <option value="10:00 AM - 10:30 AM">10:00 AM - 10:30 AM</option>
-          <option value="11:00 AM - 11:30 AM">11:00 AM - 11:30 AM</option>
-          <option value="02:00 PM - 02:30 PM">02:00 PM - 02:30 PM</option>
-          <option value="03:00 PM - 03:30 PM">03:00 PM - 03:30 PM</option>
-          <option value="04:00 PM - 04:30 PM">04:00 PM - 04:30 PM</option>
+          <option value="09:00 AM">9:00 AM</option>
+          <option value="10:00 AM">10:00 AM</option>
+          <option value="11:00 AM">11:00 AM</option>
+          <option value="02:00 PM">2:00 PM</option>
+          <option value="03:00 PM">3:00 PM</option>
+          <option value="04:00 PM">4:00 PM</option>
         </select>
       </div>
 

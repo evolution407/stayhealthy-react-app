@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./DoctorCard.css";
 import AppointmentForm from "../AppointmentForm/AppointmentForm";
 
@@ -8,6 +8,14 @@ const DoctorCard = ({ name, speciality, experience, ratings, profilePic }) => {
   // ✅ kenbe appointment la (si gen booking)
   const [appointment, setAppointment] = useState(null);
 
+  // ✅ (AJOUTE) chaje appointment depi localStorage si li te deja booke
+  useEffect(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem(name));
+      if (saved) setAppointment(saved);
+    } catch (e) {}
+  }, [name]);
+
   // ✅ Book button click
   const handleBookingClick = () => {
     setShowForm(true);
@@ -15,14 +23,35 @@ const DoctorCard = ({ name, speciality, experience, ratings, profilePic }) => {
 
   // ✅ Cancel appointment
   const handleCancel = () => {
+    // ✅ (AJOUTE) efase booking + doctorData pou Notification disparèt
+    try {
+      const storedDoctorData = JSON.parse(localStorage.getItem("doctorData"));
+      if (storedDoctorData?.name) {
+        localStorage.removeItem(storedDoctorData.name);
+      }
+      localStorage.removeItem("doctorData");
+      localStorage.removeItem(name);
+    } catch (e) {}
+
     setAppointment(null);
     setShowForm(false);
+
+    // ✅ (AJOUTE) fòse Notification re-check
+    window.dispatchEvent(new Event("storage"));
   };
 
   // ✅ Lè form submit
   const handleFormSubmit = (data) => {
     setAppointment(data); // sove booking info
-    setShowForm(false);   // kache form
+    setShowForm(false); // kache form
+
+    // ✅ (AJOUTE) sove done yo pou Notification (jan lab la mande)
+    const doctorData = { name, speciality, experience, ratings };
+    localStorage.setItem("doctorData", JSON.stringify(doctorData));
+    localStorage.setItem(name, JSON.stringify(data)); // kle a = non doktè a
+
+    // ✅ (AJOUTE) fòse Notification re-check
+    window.dispatchEvent(new Event("storage"));
   };
 
   return (
@@ -59,10 +88,14 @@ const DoctorCard = ({ name, speciality, experience, ratings, profilePic }) => {
           <div className="doctor-card-options-container">
             <button
               type="button"
-              className={`book-appointment-btn ${appointment ? "cancel-appointment" : ""}`}
+              className={`book-appointment-btn ${
+                appointment ? "cancel-appointment" : ""
+              }`}
               onClick={appointment ? handleCancel : handleBookingClick}
             >
-              <div>{appointment ? "Cancel Appointment" : "Book Appointment"}</div>
+              <div>
+                {appointment ? "Cancel Appointment" : "Book Appointment"}
+              </div>
               <div>No Booking Fee</div>
             </button>
           </div>
@@ -71,10 +104,18 @@ const DoctorCard = ({ name, speciality, experience, ratings, profilePic }) => {
           {appointment && (
             <div className="bookedInfo">
               <h4 style={{ marginTop: "12px" }}>Appointment Booked!</h4>
-              <p><strong>Name:</strong> {appointment.name}</p>
-              <p><strong>Phone Number:</strong> {appointment.phoneNumber}</p>
-              <p><strong>Date:</strong> {appointment.appointmentDate}</p>
-              <p><strong>Time Slot:</strong> {appointment.selectedSlot}</p>
+              <p>
+                <strong>Name:</strong> {appointment.name}
+              </p>
+              <p>
+                <strong>Phone Number:</strong> {appointment.phoneNumber}
+              </p>
+              <p>
+                <strong>Date:</strong> {appointment.appointmentDate}
+              </p>
+              <p>
+                <strong>Time Slot:</strong> {appointment.selectedSlot}
+              </p>
 
               <button type="button" onClick={handleCancel}>
                 Cancel Appointment
