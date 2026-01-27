@@ -10,32 +10,33 @@ import InstantConsultation from "./Components/InstantConsultationBooking/Instant
 import FindDoctorSearch from "./Components/FindDoctorSearch/FindDoctorSearch";
 import BookingConsultation from "./Components/BookingConsultation";
 
-// ✅ NEW: Notification wrapper (must be available on every page)
+// ✅ Notification wrapper (must be available on every page)
 import Notification from "./Components/Notification/Notification";
 
 function App() {
   return (
-    <BrowserRouter>
-      {/* ✅ Wrap everything so notification shows on every route/page */}
-      <Notification>
-        <Navbar />
+    <div className="App">
+      <BrowserRouter>
+        <Notification>
+          <Navbar />
 
-        <Routes>
-          <Route path="/" element={<Landing_Page />} />
-          <Route path="/signup" element={<Sign_Up />} />
-          <Route path="/login" element={<Login />} />
-          <Route
-            path="/instant-consultation"
-            element={<InstantConsultation />}
-          />
-          <Route
-            path="/booking-consultation"
-            element={<BookingConsultation />}
-          />
-          <Route path="/find-doctor" element={<FindDoctorSearch />} />
-        </Routes>
-      </Notification>
-    </BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Landing_Page />} />
+            <Route path="/signup" element={<Sign_Up />} />
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/instant-consultation"
+              element={<InstantConsultation />}
+            />
+            <Route
+              path="/booking-consultation"
+              element={<BookingConsultation />}
+            />
+            <Route path="/find-doctor" element={<FindDoctorSearch />} />
+          </Routes>
+        </Notification>
+      </BrowserRouter>
+    </div>
   );
 }
 
