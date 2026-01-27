@@ -1,6 +1,5 @@
 import React from "react";
 import "./Landing_Page.css";
-import DoctorCard from "../DoctorCard/DoctorCard";
 
 const Landing_Page = () => {
   return (
@@ -32,39 +31,6 @@ const Landing_Page = () => {
             </a>
           </div>
         </div>
-      </section>
-
-      {/* ===== DOCTOR CARD SECTION (NOUVO, AJOUTE SELMAN) ===== */}
-      <section
-        id="services"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          flexWrap: "wrap",
-          padding: "40px",
-          gap: "20px",
-        }}
-      >
-        <DoctorCard
-          name="Dr. John Smith"
-          speciality="Cardiologist"
-          experience="10"
-          ratings="4.8 / 5"
-        />
-
-        <DoctorCard
-          name="Dr. Sarah Lee"
-          speciality="Dermatologist"
-          experience="7"
-          ratings="4.6 / 5"
-        />
-
-        <DoctorCard
-          name="Dr. Michael Brown"
-          speciality="Pediatrician"
-          experience="12"
-          ratings="4.9 / 5"
-        />
       </section>
     </>
   );

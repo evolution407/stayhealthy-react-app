@@ -6,18 +6,19 @@
   border-radius: 12px;
 }
 
-.form-group {
+.appointment-form .form-group {
   margin-bottom: 18px;
 }
 
-label {
+.appointment-form label {
   display: block;
   font-weight: bold;
   margin-bottom: 8px;
+  text-align: left;
 }
 
-input,
-select {
+.appointment-form input,
+.appointment-form select {
   width: 100%;
   padding: 12px;
   border: 1px solid #cfcfcf;
@@ -26,7 +27,7 @@ select {
   background: #fff;
 }
 
-button {
+.appointment-form button {
   width: 100%;
   padding: 14px 20px;
   background-color: #007bff;
@@ -37,6 +38,6 @@ button {
   font-size: 18px;
 }
 
-button:hover {
+.appointment-form button:hover {
   background-color: #0056b3;
 }
