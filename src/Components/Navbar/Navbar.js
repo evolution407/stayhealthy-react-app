@@ -10,12 +10,12 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
 
-  // ✅ NEW: dropdown state pou Profile
+  // ✅ Dropdown state
   const [showProfileMenu, setShowProfileMenu] = useState(false);
 
   // ✅ Fonksyon Logout
   const handleLogout = () => {
-    sessionStorage.clear(); // efase tout done sesyon
+    sessionStorage.clear();
     setIsLoggedIn(false);
     setShowProfileMenu(false);
     navigate("/");
@@ -30,7 +30,6 @@ const Navbar = () => {
     if (token && email) {
       setIsLoggedIn(true);
 
-      // ekstrè non an soti nan email la anvan "@"
       const nameFromEmail = email.split("@")[0];
       setUsername(
         nameFromEmail.charAt(0).toUpperCase() + nameFromEmail.slice(1)
@@ -52,7 +51,7 @@ const Navbar = () => {
     }
   };
 
-  // ✅ NEW: toggle dropdown
+  // ✅ Toggle dropdown
   const handleToggleProfileMenu = () => {
     setShowProfileMenu((prev) => !prev);
   };
@@ -83,14 +82,12 @@ const Navbar = () => {
           <a href="#">Appointments</a>
         </li>
 
-        {/* ✅ Nou ajoute bouton Instant Consultation la */}
         <li className="link">
           <Link to="/instant-consultation">
             <button className="btn1">Instant Consultation</button>
           </Link>
         </li>
 
-        {/* ✅ Si user pa konekte */}
         {!isLoggedIn ? (
           <>
             <li className="link">
@@ -106,43 +103,39 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            {/* ✅ NEW: Dropdown Profile (jan lab la mande a) */}
-            <li className="link username-display" style={{ position: "relative" }}>
+            {/* ✅ Dropdown: Your Profile + Your Reports (jan lab la mande) */}
+            <li className="link username-display profile-dropdown">
               <button
                 type="button"
                 onClick={handleToggleProfileMenu}
-                className="btn1"
-                style={{
-                  background: "transparent",
-                  border: "none",
-                  padding: 0,
-                  cursor: "pointer",
-                }}
+                className="btn1 profile-trigger"
               >
-                <span>Welcome, {username}</span>
+                Welcome, {username}
               </button>
 
               {showProfileMenu && (
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "38px",
-                    left: 0,
-                    background: "#fff",
-                    border: "1px solid #ddd",
-                    borderRadius: "8px",
-                    minWidth: "160px",
-                    padding: "10px",
-                    zIndex: 9999,
-                  }}
-                >
-                  <Link
-                    to="/profile"
-                    onClick={() => setShowProfileMenu(false)}
-                    style={{ textDecoration: "none", color: "#333" }}
+                <div className="profile-menu">
+                  <button
+                    type="button"
+                    className="profile-menu-item"
+                    onClick={() => {
+                      setShowProfileMenu(false);
+                      navigate("/profile");
+                    }}
                   >
                     Your Profile
-                  </Link>
+                  </button>
+
+                  <button
+                    type="button"
+                    className="profile-menu-item"
+                    onClick={() => {
+                      setShowProfileMenu(false);
+                      navigate("/reports");
+                    }}
+                  >
+                    Your Reports
+                  </button>
                 </div>
               )}
             </li>

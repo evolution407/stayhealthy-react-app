@@ -11,6 +11,7 @@ import FindDoctorSearch from "./Components/FindDoctorSearch/FindDoctorSearch";
 import BookingConsultation from "./Components/BookingConsultation";
 import ReviewForm from "./Components/ReviewForm/ReviewForm";
 import ProfileCard from "./Components/ProfileCard/ProfileCard";
+import ReportsLayout from "./Components/ReportsLayout/ReportsLayout";
 
 // ✅ Notification wrapper (must be available on every page)
 import Notification from "./Components/Notification/Notification";
@@ -37,6 +38,7 @@ function App() {
             <Route path="/find-doctor" element={<FindDoctorSearch />} />
             <Route path="/reviews" element={<ReviewForm />} />
             <Route path="/profile" element={<ProfileCard />} />
+            <Route path="/reports" element={<ReportsLayout />} />
 
           </Routes>
         </Notification>
