@@ -9,6 +9,8 @@ import Login from "./Components/Login/Login";
 import InstantConsultation from "./Components/InstantConsultationBooking/InstantConsultation";
 import FindDoctorSearch from "./Components/FindDoctorSearch/FindDoctorSearch";
 import BookingConsultation from "./Components/BookingConsultation";
+import ReviewForm from "./Components/ReviewForm/ReviewForm";
+
 
 // ✅ Notification wrapper (must be available on every page)
 import Notification from "./Components/Notification/Notification";
@@ -33,6 +35,8 @@ function App() {
               element={<BookingConsultation />}
             />
             <Route path="/find-doctor" element={<FindDoctorSearch />} />
+            <Route path="/reviews" element={<ReviewForm />} />
+
           </Routes>
         </Notification>
       </BrowserRouter>
