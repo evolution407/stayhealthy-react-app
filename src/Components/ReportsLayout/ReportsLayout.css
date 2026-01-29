@@ -1,39 +1,186 @@
+/* ReportsLayout.css */
+
+/* Main wrapper */
 .reports-container {
-    padding: 30px;
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 24px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 14px rgba(0, 0, 0, 0.08);
   }
   
+  /* Title */
   .reports-title {
-    font-size: 32px;
+    margin: 0 0 18px;
+    font-size: 26px;
     font-weight: 700;
-    margin-bottom: 20px;
-  }
-  
-  .reports-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-  }
-  
-  .reports-table th,
-  .reports-table td {
-    border: 1px solid #ddd;
-    padding: 14px;
+    color: #101935;
     text-align: center;
   }
   
-  .report-btn {
-    display: inline-block;
-    padding: 10px 18px;
-    background: #2190ff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    text-decoration: none;
-    font-weight: 600;
+  /* Table */
+  .reports-table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 10px;
   }
   
+  /* Header */
+  .reports-table thead th {
+    text-align: left;
+    padding: 14px 12px;
+    font-size: 14px;
+    letter-spacing: 0.2px;
+    color: #0f172a;
+    background: #f3f7ff;
+    border-bottom: 1px solid #e6eaf2;
+  }
+  
+  /* Body cells */
+  .reports-table tbody td {
+    padding: 14px 12px;
+    font-size: 15px;
+    color: #101935;
+    border-bottom: 1px solid #eef2f7;
+    vertical-align: middle;
+  }
+  
+  /* Zebra rows */
+  .reports-table tbody tr:nth-child(even) {
+    background: #fafafa;
+  }
+  
+  /* Hover row */
+  .reports-table tbody tr:hover {
+    background: #f6fbff;
+  }
+  
+  /* Serial number align */
+  .reports-table tbody td:first-child {
+    font-weight: 700;
+    color: #1b4965;
+    width: 130px;
+  }
+  
+  /* Actions columns */
+  .reports-table tbody td:nth-child(4),
+  .reports-table tbody td:nth-child(5) {
+    width: 170px;
+  }
+  
+  /* Button / link shared style */
+  .report-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 130px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #2190ff;
+    background: #2190ff;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none; /* for <a> */
+    transition: transform 0.06s ease, background-color 0.2s ease, border-color 0.2s ease;
+  }
+  
+  /* Hover */
   .report-btn:hover {
-    background: #1677db;
+    background: #0f66e6;
+    border-color: #0f66e6;
+  }
+  
+  /* Active click */
+  .report-btn:active {
+    transform: scale(0.98);
+  }
+  
+  /* Focus accessibility */
+  .report-btn:focus {
+    outline: none;
+  }
+  
+  .report-btn:focus-visible {
+    box-shadow: 0 0 0 3px rgba(33, 144, 255, 0.25);
+  }
+  
+  /* Make the <button> look consistent */
+  button.report-btn {
+    font-family: inherit;
+    line-height: 1;
+  }
+  
+  /* Responsive table: keep readable on small screens */
+  @media (max-width: 860px) {
+    .reports-container {
+      margin: 20px 12px;
+      padding: 16px;
+    }
+  
+    .reports-title {
+      font-size: 22px;
+    }
+  
+    .reports-table thead {
+      display: none;
+    }
+  
+    .reports-table,
+    .reports-table tbody,
+    .reports-table tr,
+    .reports-table td {
+      display: block;
+      width: 100%;
+    }
+  
+    .reports-table tbody tr {
+      border: 1px solid #eef2f7;
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 12px;
+      background: #ffffff;
+    }
+  
+    .reports-table tbody td {
+      border: none;
+      padding: 10px 8px;
+    }
+  
+    /* Labels for each cell */
+    .reports-table tbody td:nth-child(1)::before {
+      content: "Serial Number: ";
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .reports-table tbody td:nth-child(2)::before {
+      content: "Doctor Name: ";
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .reports-table tbody td:nth-child(3)::before {
+      content: "Doctor Speciality: ";
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .reports-table tbody td:nth-child(4)::before {
+      content: "View Report: ";
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .reports-table tbody td:nth-child(5)::before {
+      content: "Download Report: ";
+      font-weight: 700;
+      color: #0f172a;
+    }
+  
+    .report-btn {
+      width: 100%;
+      min-width: 0;
+      margin-top: 6px;
+    }
   }
   
