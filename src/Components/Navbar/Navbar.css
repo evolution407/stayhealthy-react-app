@@ -110,30 +110,32 @@ nav {
     display: block;
   }
 }
+
 /* ✅ Username display style */
 .username-display span {
-    color: #1b4965;
-    font-weight: 600;
-    margin-right: 8px;
-  }
-  
-  /* ✅ Logout button style */
-  .logout-btn {
-    background-color: #e63946 !important;
-    color: #fff;
-    border: none;
-  }
-  
-  .logout-btn:hover {
-    background-color: #d62828 !important;
-  }
-  /* ✅ Bouton stil prensipal */
+  color: #1b4965;
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+/* ✅ Logout button style */
+.logout-btn {
+  background-color: #e63946 !important;
+  color: #fff;
+  border: none;
+}
+
+.logout-btn:hover {
+  background-color: #d62828 !important;
+}
+
+/* ✅ Bouton stil prensipal */
 .btn1 {
   padding: 6px 16px;
   border-radius: 25px;
   border: 2px solid #008080; /* koulè ble-vèt */
-  background-color: white;   /* background blan vizib sou navbar blan */
-  color: #008080;            /* tèks vizib */
+  background-color: white; /* background blan vizib sou navbar blan */
+  color: #008080; /* tèks vizib */
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -154,4 +156,32 @@ nav {
 .logout-btn:hover {
   background-color: #d9534f;
   color: white;
+}
+
+/* ✅ NEW (Lab): dropdown Profile */
+.profile-dropdown {
+  position: absolute;
+  top: 38px;
+  left: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  min-width: 160px;
+  padding: 10px;
+  z-index: 9999;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.profile-dropdown a {
+  display: block;
+  text-decoration: none;
+  color: #101935;
+  font-weight: 500;
+  padding: 8px 10px;
+  border-radius: 6px;
+}
+
+.profile-dropdown a:hover {
+  background: #f3f7ff;
+  color: #2190ff;
 }

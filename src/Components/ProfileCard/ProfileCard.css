@@ -1,0 +1,38 @@
+.profilecard-page {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 30px 10px;
+}
+
+.profilecard {
+  width: 320px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  padding: 18px 18px 20px;
+}
+
+.profilecard-title {
+  margin: 0 0 14px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.profilecard-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.profilecard-label {
+  font-weight: 700;
+  color: #333;
+  min-width: 70px;
+}
+
+.profilecard-value {
+  color: #555;
+  word-break: break-word;
+}

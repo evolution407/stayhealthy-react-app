@@ -10,10 +10,14 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
 
+  // ✅ NEW: dropdown state pou Profile
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
+
   // ✅ Fonksyon Logout
   const handleLogout = () => {
     sessionStorage.clear(); // efase tout done sesyon
     setIsLoggedIn(false);
+    setShowProfileMenu(false);
     navigate("/");
     window.location.reload();
   };
@@ -46,6 +50,11 @@ const Navbar = () => {
       navIcon.classList.remove("fa-times");
       navIcon.classList.add("fa-bars");
     }
+  };
+
+  // ✅ NEW: toggle dropdown
+  const handleToggleProfileMenu = () => {
+    setShowProfileMenu((prev) => !prev);
   };
 
   return (
@@ -97,10 +106,47 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            {/* ✅ Si user konekte: afiche non + logout */}
-            <li className="link username-display">
-              <span>Hi, {username}</span>
+            {/* ✅ NEW: Dropdown Profile (jan lab la mande a) */}
+            <li className="link username-display" style={{ position: "relative" }}>
+              <button
+                type="button"
+                onClick={handleToggleProfileMenu}
+                className="btn1"
+                style={{
+                  background: "transparent",
+                  border: "none",
+                  padding: 0,
+                  cursor: "pointer",
+                }}
+              >
+                <span>Welcome, {username}</span>
+              </button>
+
+              {showProfileMenu && (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "38px",
+                    left: 0,
+                    background: "#fff",
+                    border: "1px solid #ddd",
+                    borderRadius: "8px",
+                    minWidth: "160px",
+                    padding: "10px",
+                    zIndex: 9999,
+                  }}
+                >
+                  <Link
+                    to="/profile"
+                    onClick={() => setShowProfileMenu(false)}
+                    style={{ textDecoration: "none", color: "#333" }}
+                  >
+                    Your Profile
+                  </Link>
+                </div>
+              )}
             </li>
+
             <li className="link">
               <button className="btn1 logout-btn" onClick={handleLogout}>
                 Logout
