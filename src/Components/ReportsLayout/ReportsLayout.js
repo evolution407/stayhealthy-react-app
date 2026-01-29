@@ -2,18 +2,15 @@ import React from "react";
 import "./ReportsLayout.css";
 
 const ReportsLayout = () => {
-  // ✅ Sample data (tankou screenshot lab la)
+  // Ou ka ranplase done sa yo ak done reyèl pita
   const reports = [
     { id: 1, doctorName: "Dr. John Doe", speciality: "Cardiology" },
     { id: 2, doctorName: "Dr. Jane Smith", speciality: "Dermatology" },
   ];
 
-  const handleViewReport = (doctorName) => {
-    alert(`View Report for ${doctorName}`);
-  };
-
-  const handleDownloadReport = (doctorName) => {
-    alert(`Download Report for ${doctorName}`);
+  // ✅ VIEW: louvri pdf la nan nouvo tab
+  const handleViewReport = () => {
+    window.open("/patient_report.pdf", "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -37,21 +34,27 @@ const ReportsLayout = () => {
               <td>{row.id}</td>
               <td>{row.doctorName}</td>
               <td>{row.speciality}</td>
+
+              {/* ✅ VIEW */}
               <td>
                 <button
+                  type="button"
                   className="report-btn"
-                  onClick={() => handleViewReport(row.doctorName)}
+                  onClick={handleViewReport}
                 >
                   View Report
                 </button>
               </td>
+
+              {/* ✅ DOWNLOAD (anchor + download attribute) */}
               <td>
-                <button
+                <a
                   className="report-btn"
-                  onClick={() => handleDownloadReport(row.doctorName)}
+                  href="/patient_report.pdf"
+                  download="patient_report.pdf"
                 >
                   Download Report
-                </button>
+                </a>
               </td>
             </tr>
           ))}
