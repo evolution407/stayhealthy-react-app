@@ -1,38 +1,73 @@
-.profilecard-page {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding: 30px 10px;
-}
-
-.profilecard {
-  width: 320px;
-  background: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-  padding: 18px 18px 20px;
-}
-
-.profilecard-title {
-  margin: 0 0 14px;
-  font-size: 18px;
-  font-weight: 700;
-}
-
-.profilecard-row {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.profilecard-label {
-  font-weight: 700;
-  color: #333;
-  min-width: 70px;
-}
-
-.profilecard-value {
-  color: #555;
-  word-break: break-word;
-}
+/* Styles for the container holding the profile information */
+.profile-container {
+    max-width: 400px;
+    margin: 15% auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+  }
+  
+  /* Styles for the heading within the profile container */
+  .profile-container h1 {
+    margin-top: 0;
+  }
+  
+  /* Styles for the form within the profile container */
+  .profile-container form {
+    margin-bottom: 20px;
+  }
+  
+  /* Styles for labels within the profile container */
+  .profile-container label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  /* Styles for text and email input fields within the profile container */
+  .profile-container input[type="text"],
+  .profile-container input[type="email"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Styles for buttons within the profile container */
+  .profile-container button {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    background-color: #2190ff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* Styles for the container holding additional profile details */
+  .profile-details {
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 20px;
+  }
+  
+  /* Styles for headings within the profile details container */
+  .profile-details h2 {
+    margin-top: 0;
+  }
+  
+  /* Styles for paragraphs within the profile details container */
+  .profile-details p {
+    margin-bottom: 10px;
+  }
+  
+  /* Styles for buttons within the profile details container */
+  .profile-details button {
+    background-color: #2190ff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  
