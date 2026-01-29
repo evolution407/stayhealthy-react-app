@@ -2,114 +2,130 @@ import React, { useState } from "react";
 import "./ReviewForm.css";
 
 const ReviewForm = () => {
-  const [openFormId, setOpenFormId] = useState(null);
-  const [reviews, setReviews] = useState({}); // { [id]: "text review" }
+  const [showForm, setShowForm] = useState(false);
+  const [reviewSubmitted, setReviewSubmitted] = useState(false);
+  const [submittedReview, setSubmittedReview] = useState(null);
 
-  // ✅ Sample doctors (lab la bezwen afichaj, nou mete 2 kòm egzanp)
-  const consultations = [
-    { id: 1, doctorName: "Dr. John Doe", doctorSpeciality: "Cardiology" },
-    { id: 2, doctorName: "Dr. Jane Smith", doctorSpeciality: "Dermatology" },
-  ];
+  const [formData, setFormData] = useState({
+    name: "",
+    review: "",
+    rating: 0,
+  });
 
-  const handleOpen = (id) => {
-    setOpenFormId(id);
+  const handleClickHere = () => {
+    setShowForm(true);
   };
 
-  const handleClose = () => {
-    setOpenFormId(null);
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleChange = (id, value) => {
-    setReviews((prev) => ({ ...prev, [id]: value }));
+  const handleRatingClick = (value) => {
+    setFormData({ ...formData, rating: value });
   };
 
-  const handleSubmit = (e, id) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    // ✅ review la deja nan state "reviews"
-    setOpenFormId(null);
+
+    // ✅ lab la mande validation: name + review + rating
+    if (formData.name && formData.review && formData.rating > 0) {
+      setSubmittedReview(formData);
+      setReviewSubmitted(true); // 🔒 disable feedback after submit
+      setShowForm(false);
+    }
   };
 
   return (
-    <div className="reviews-page">
-      <h2 className="reviews-title">Reviews</h2>
+    <div className="review-container">
+      <h2>Reviews</h2>
 
-      <div className="reviews-table-wrapper">
-        <table className="reviews-table">
-          <thead>
-            <tr>
-              <th>Serial Number</th>
-              <th>Doctor Name</th>
-              <th>Doctor Specialty</th>
-              <th>Provide feedback</th>
-              <th>Review Given</th>
-            </tr>
-          </thead>
+      <table className="review-table">
+        <thead>
+          <tr>
+            <th>Serial Number</th>
+            <th>Doctor Name</th>
+            <th>Doctor Speciality</th>
+            <th>Provide feedback</th>
+            <th>Review Given</th>
+          </tr>
+        </thead>
 
-          <tbody>
-            {consultations.map((c) => (
-              <React.Fragment key={c.id}>
-                <tr>
-                  <td>{c.id}</td>
-                  <td>{c.doctorName}</td>
-                  <td>{c.doctorSpeciality}</td>
-                  <td>
-                    <button
-                      className="feedback-btn"
-                      type="button"
-                      onClick={() => handleOpen(c.id)}
-                    >
-                      Click Here
-                    </button>
-                  </td>
-                  <td className="review-given">
-                    {reviews[c.id] ? "Yes" : ""}
-                  </td>
-                </tr>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Dr. John Doe</td>
+            <td>Cardiology</td>
+            <td>
+              <button
+                onClick={handleClickHere}
+                disabled={reviewSubmitted}
+                className="feedback-btn"
+                type="button"
+              >
+                Click Here
+              </button>
+            </td>
 
-                {/* ✅ Feedback form row (ap louvri lè w klike button lan) */}
-                {openFormId === c.id && (
-                  <tr className="feedback-row">
-                    <td colSpan="5">
-                      <form
-                        className="feedback-form"
-                        onSubmit={(e) => handleSubmit(e, c.id)}
-                      >
-                        <div className="feedback-form-header">
-                          <div>
-                            <strong>Doctor:</strong> {c.doctorName}{" "}
-                            <span className="dot">•</span>{" "}
-                            <strong>Speciality:</strong> {c.doctorSpeciality}
-                          </div>
+            {/* ✅ montre review + rating nan kolòn wouj la */}
+            <td className="review-message">
+              {submittedReview ? (
+                <>
+                  <div><strong>{submittedReview.name}</strong></div>
+                  <div>{submittedReview.review}</div>
+                  <div>
+                    {"⭐".repeat(submittedReview.rating)}
+                    {"☆".repeat(5 - submittedReview.rating)}
+                  </div>
+                </>
+              ) : (
+                ""
+              )}
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-                          <button
-                            type="button"
-                            className="close-btn"
-                            onClick={handleClose}
-                          >
-                            ✕
-                          </button>
-                        </div>
+      {/* FORM */}
+      {showForm && !reviewSubmitted && (
+        <form className="review-form" onSubmit={handleSubmit}>
+          <h3>Give Your Review</h3>
 
-                        <textarea
-                          className="feedback-textarea"
-                          placeholder="Write your feedback..."
-                          value={reviews[c.id] || ""}
-                          onChange={(e) => handleChange(c.id, e.target.value)}
-                          required
-                        />
+          <label>Name:</label>
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
 
-                        <button type="submit" className="submit-btn">
-                          Submit Review
-                        </button>
-                      </form>
-                    </td>
-                  </tr>
-                )}
-              </React.Fragment>
+          <label>Review:</label>
+          <textarea
+            name="review"
+            value={formData.review}
+            onChange={handleChange}
+            required
+          />
+
+          {/* ✅ Rating selector 1–5 */}
+          <label>Rating:</label>
+          <div className="rating-stars">
+            {[1, 2, 3, 4, 5].map((num) => (
+              <span
+                key={num}
+                className={`star ${formData.rating >= num ? "filled" : ""}`}
+                onClick={() => handleRatingClick(num)}
+                role="button"
+                tabIndex={0}
+              >
+                ★
+              </span>
             ))}
-          </tbody>
-        </table>
-      </div>
+          </div>
+
+          <button type="submit">Submit</button>
+        </form>
+      )}
     </div>
   );
 };
